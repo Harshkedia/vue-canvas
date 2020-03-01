@@ -31,6 +31,7 @@ export default {
       const y = event.clientY - rect.top; 
       const context = canvas.getContext('2d');
       context.beginPath();
+      context.fillStyle="red";
       context.ellipse(x, y, 5, 5, Math.PI / 4, 0, 2 * Math.PI);
       context.fill();
     }
@@ -40,8 +41,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-#plan{
-  border: 1px solid black;
-}
 </style>
