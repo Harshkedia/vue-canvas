@@ -1,18 +1,22 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <canvas-clicker :width="canvasWidth" :height="canvasHeight" :image="canvasImage"></canvas-clicker>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CanvasClicker from './components/CanvasClicker.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    CanvasClicker
+  },
+  data: () => ({
+    canvasWidth: 1200,
+    canvasHeight: 600,
+    canvasImage: 'floor-plan.png'
+  })
 }
 </script>
 
