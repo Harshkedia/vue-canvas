@@ -8,6 +8,7 @@
 
 <script>
 import store from "@/test.json";
+import * as apiHandler from "../lib/BackendHandler";
 const firebase = require("firebase/app");
 require("firebase/storage");
 
@@ -73,16 +74,21 @@ export default {
       }
     },
     drawSpaces() {
-      const context = this.canvas.getContext("2d");
-      this.spaces.map(space => {
-        context.beginPath();
-        context.fillStyle = "rgba(100,100,100,50)";
-        space.points.map(point => {
-          context.lineTo(point[0], point[1]);
-          context.fill();
-        });
-        context.closePath();
+      //   const context = this.canvas.getContext("2d");
+      const queryString = apiHandler.getSpacesString("Amazon");
+      console.log(queryString);
+      apiHandler.callAPI(queryString).then(res => {
+        console.log(res);
       });
+      //   this.spaces.map(space => {
+      //     context.beginPath();
+      //     context.fillStyle = "rgba(100,100,100,50)";
+      //     space.points.map(point => {
+      //       context.lineTo(point.x, point.y);
+      //       context.fill();
+      //     });
+      //     context.closePath();
+      //   });
     },
     getMousePosition(canvas, event) {
       const rect = canvas.getBoundingClientRect();
