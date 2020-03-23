@@ -1,23 +1,27 @@
 <template>
   <div id="app">
-    <canvas-clicker :width="canvasWidth" :height="canvasHeight" :image="canvasImage"></canvas-clicker>
+    <canvas-clicker
+      :width="canvasWidth"
+      :height="canvasHeight"
+      :image="canvasImage"
+    ></canvas-clicker>
   </div>
 </template>
 
 <script>
-import CanvasClicker from './components/CanvasClicker.vue'
+import CanvasClicker from "./components/CanvasClicker.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     CanvasClicker
   },
   data: () => ({
-    canvasWidth: 1200,
-    canvasHeight: 600,
-    canvasImage: 'floor-plan.png'
+    canvasWidth: 800,
+    canvasHeight: 400,
+    canvasImage: "floor-plan.png"
   })
-}
+};
 </script>
 
 <style>

@@ -21,7 +21,7 @@ export function getMakeSpaceString(
 }
 
 export function getSpacesString(project) {
-  return `query{getSpaces(project:"${project}"){points{x, y}}}`;
+  return `query{getSpaces(project:"${project}"){name points{x, y}}}`;
 }
 
 export function callAPI(queryString) {
