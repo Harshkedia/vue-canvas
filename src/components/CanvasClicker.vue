@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import store from "@/test.json";
 import * as apiHandler from "@/lib/BackendHandler";
+import * as geom from "@/lib/GeometryUtil";
 const firebase = require("firebase/app");
 require("firebase/storage");
 
@@ -35,12 +35,12 @@ export default {
       canvas: null,
       spaces: [],
       dbStorage: null,
-      project: null
+      project: null,
+      selectedSpace: null
     };
   },
   mounted() {
     this.canvas = document.getElementById("plan");
-    this.spaces = store;
     this.initializeFirebase();
     this.canvas.addEventListener("mousedown", e => {
       this.getMousePosition(this.canvas, e);
@@ -79,13 +79,14 @@ export default {
       const queryString = apiHandler.getSpacesString(this.project);
       apiHandler.callAPI(queryString).then(res => {
         res.getSpaces.map(space => {
+          this.spaces.push(space);
           this.drawLabels(space);
           context.beginPath();
           context.strokeStyle = "red";
           space.points.map(point => {
             context.lineTo(point.x, point.y);
-            context.stroke();
           });
+          context.stroke();
           context.closePath();
         });
       });
@@ -95,6 +96,15 @@ export default {
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
       const context = canvas.getContext("2d");
+      for (const space of this.spaces) {
+        const points = space.points.map(point => {
+          return { x: point.x, y: point.y };
+        });
+        if (geom.insidePolygon(space.name, { x: x, y: y }, points)) {
+          this.selectedSpace = space;
+          console.log(space.name);
+        }
+      }
       context.beginPath();
       context.fillStyle = "red";
       context.ellipse(x, y, 5, 5, Math.PI / 4, 0, 2 * Math.PI);
@@ -104,7 +114,6 @@ export default {
       const context = this.canvas.getContext("2d");
       context.fillStyle = "red";
       const center = this.getCenter(space.points);
-      console.log(center);
       context.fillText(space.name, center[0], center[1]);
     },
     getCenter(points) {

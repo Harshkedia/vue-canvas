@@ -27,7 +27,7 @@ export function getSpacesString(project) {
 export function callAPI(queryString) {
   return new Promise((resolve, reject) => {
     axios({
-      url: "http://localhost:4000",
+      url: "https://rhythm-day-backend.herokuapp.com/",
       method: "post",
       headers: {
         "Content-Type": "application/json"
