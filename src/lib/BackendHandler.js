@@ -8,6 +8,10 @@ export function getMakeActivityString(name, start, duration) {
   return `mutation{makeActivity(name:"${name}", start:${start}, duration:${duration}){id}}`;
 }
 
+export function getAddActivitiesString(personId, activityIds) {
+  return `mutation{addActivities(personId:"${personId}", activityIds: [${activityIds}]`;
+}
+
 export function getMakeSpaceString(
   name,
   project,
